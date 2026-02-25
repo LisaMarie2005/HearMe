@@ -1,6 +1,710 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+    --bg: #c8e8ed;
+    --pink: #f4a0a0;
+    --pink-dark: #3a3a3a;
+    --btn: #8b9fd4;
+    --btn-hover: #7a8fc4;
+    --mauve: #c4aaa8;
+    --mauve-dark: #a08280;
+    --text: #1a1a1a;
+    --input-line: #999;
+    --shelf-wood: #b5813b;
+    --shelf-dark: #8a5e22;
+    --board-bg: #c9a96e;
+    --board-border: #5c3d1e;
+}
+
+/* ─── BASE ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ─── WIZARD LAYOUT (shared by playlist + bg-picker pages) ─ */
+.wizard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Left sidebar — vertical playlist label */
+.wizard-sidebar {
+    width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+}
+
+.sidebar-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pink);
+    border: 3px solid var(--pink-dark);
+    border-radius: 8px;
+    width: 72px;
+    height: 340px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    cursor: default;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+/* Main wizard content */
+.wizard-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 5rem 5rem;
+    position: relative;
+}
+
+.wizard-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 2.5rem;
+}
+
+/* ─── STEP 1: Playlist name ──────────────────────────────── */
+.name-input-wrapper {
+    max-width: 420px;
+}
+
+.name-input-wrapper input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--pink-dark);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    padding: 0.4rem 0.2rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.name-input-wrapper input::placeholder {
+    color: #888;
+    font-weight: 400;
+}
+
+.name-input-wrapper input:focus {
+    border-bottom-color: var(--btn);
+}
+
+/* ─── STEP 2: Colour grid ───────────────────────────────── */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 44px);
+    gap: 8px;
+    max-width: 500px;
+}
+
+.color-swatch {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.color-swatch:hover {
+    transform: scale(1.12);
+}
+
+.color-swatch.selected {
+    border: 3px solid var(--pink-dark);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
+    transform: scale(1.12);
+}
+
+/* ─── STEP 3: Song search + edit panel ──────────────────── */
+.songs-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.search-area h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    flex: 1;
+}
+
+.search-icon {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.song-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.song-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.song-info {
+    flex: 1;
+}
+
+.song-info .song-name {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.song-info .song-artist {
+    font-size: 0.82rem;
+    color: #555;
+    margin-top: 2px;
+}
+
+.btn-add-song {
+    background: none;
+    border: 2px solid var(--text);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+    line-height: 1;
+}
+
+.btn-add-song:hover {
+    background: var(--text);
+    color: white;
+}
+
+/* Edit playlist panel */
+.edit-panel {
+    background: var(--mauve);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.edit-panel h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+}
+
+.edit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.edit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0.45rem 0.6rem;
+}
+
+.btn-remove-song {
+    background: none;
+    border: 1.5px solid var(--text);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: background 0.15s ease;
+}
+
+.btn-remove-song:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.edit-thumb {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.edit-info {
+    flex: 1;
+}
+
+.edit-info .song-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.edit-info .song-artist {
+    font-size: 0.75rem;
+    color: #444;
+}
+
+.drag-handle {
+    color: #666;
+    font-size: 1rem;
+    cursor: grab;
+    margin-left: auto;
+}
+
+/* ─── BG PICKER PAGE ────────────────────────────────────── */
+.bg-picker-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    gap: 1.5rem;
+}
+
+.bg-picker-body h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+}
+
+.upload-area {
+    width: 480px;
+    max-width: 100%;
+    border-radius: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.07);
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 2rem;
+    color: #888;
+}
+
+.upload-area:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.or-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #555;
+}
+
+/* ─── NEXT / DONE button ─────────────────────────────────── */
+.btn-next {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    background: var(--btn);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2.5rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-next:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+/* ─── ROOM VIEW ──────────────────────────────────────────── */
+#page-room {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Room nav (top-left) */
+.room-nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.room-nav button {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.2s ease;
+}
+
+.room-nav button:hover {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.room-nav button[aria-current="page"] {
+    border-color: var(--btn);
+    background: rgba(139, 159, 212, 0.25);
+}
+
+/* ── Boombox (bigger — 480px) ─────────────────────────────── */
+.boombox-wrapper {
+    position: absolute;
+    left: 80px;
+    /* sits slightly above the shelf top (260px shelf + 10px gap) */
+    bottom: 268px;
+    width: 480px;
+    z-index: 2;
+}
+
+.boombox-wrapper svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(6px 10px 20px rgba(0, 0, 0, 0.35));
+}
+
+/* ── Profile corkboard (bigger: 320px wide) ───────────────── */
+.profile-board {
+    position: absolute;
+    top: 30px;
+    right: 80px;
+    width: 320px;
+    background: var(--board-bg);
+    border: 5px solid var(--board-border);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem 1.4rem;
+    box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+.profile-board::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, white 3px, transparent 3px);
+    background-size: 28px 28px;
+    opacity: 0.2;
+    pointer-events: none;
+    border-radius: 2px;
+}
+
+.profile-board h3 {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5c3d1e;
+    margin-bottom: 0.7rem;
+}
+
+.profile-field {
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 3px;
+    padding: 0.45rem 0.7rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #3a2a10;
+    border-left: 4px solid #e85555;
+    position: relative;
+    min-height: 32px;
+    cursor: text;
+}
+
+/* Bio field — taller */
+.profile-field.bio-field {
+    min-height: 64px;
+    align-items: flex-start;
+}
+
+.profile-photo-slot {
+    width: 72px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    position: absolute;
+    top: 1.2rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: #888;
+    text-align: center;
+    cursor: pointer;
+    border: 1.5px dashed #aaa;
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+}
+
+.profile-photo-slot:hover {
+    border-color: var(--btn);
+}
+
+/* ── Poster (bigger: 230×320px) ──────────────────────────── */
+.poster-area {
+    position: absolute;
+    bottom: 280px;
+    right: 80px;
+    width: 230px;
+    height: 320px;
+    background: rgba(210, 200, 195, 0.7);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    color: #777;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 3px 6px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.poster-area:hover {
+    transform: scale(1.02);
+    box-shadow: 5px 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* ── Realistic wooden bookshelf ──────────────────────────── */
+.shelf-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 260px;
+    z-index: 1;
+}
+
+/* Main bookcase body — oak wood colour + subtle grain */
+.shelf {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    /* Wood body — warm oak base + vertical grain lines */
+    background-color: #c8943a;
+    background-image:
+        /* subtle vertical grain */
+        repeating-linear-gradient(92deg,
+            transparent 0px,
+            transparent 18px,
+            rgba(120, 70, 10, 0.07) 18px,
+            rgba(120, 70, 10, 0.07) 20px),
+        /* horizontal shading top-to-bottom */
+        linear-gradient(180deg,
+            #d4a24a 0%,
+            #c8943a 30%,
+            #b5813b 60%,
+            #9a6a28 100%);
+
+    /* Outer frame (thick border = shelf sides & top) */
+    border-top: 14px solid #8a5e1e;
+    border-left: 14px solid #8a5e1e;
+    border-right: 14px solid #8a5e1e;
+    border-radius: 4px 4px 0 0;
     box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+    box-shadow:
+        inset 0 4px 10px rgba(0, 0, 0, 0.2),
+        0 -6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Middle horizontal shelf plank */
+.shelf::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 14px;
+    background: linear-gradient(180deg, #9a6e28 0%, #7a5218 50%, #9a6e28 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 -2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+
+/* Bottom shelf surface highlight */
+.shelf::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    background: #7a5218;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Playlist spines — sit on the lower shelf */
+.playlist-spines {
+    position: absolute;
+    bottom: 12px;
+    left: 20px;
+    right: 20px;
+    /* lower shelf bay height = ~half of shelf (260px) minus middle plank (14px) minus bottom bar (12px) */
+    height: 98px;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    padding: 0 4px;
+    overflow-x: auto;
+    z-index: 3;
+}
+
+.playlist-spine {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    background: #f4a0a0;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px 5px 0 0;
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: height 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    user-select: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 32px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.playlist-spine:hover {
+    filter: brightness(1.1);
+    box-shadow: 2px -4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-add-playlist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    min-width: 36px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    transition: color 0.15s ease, transform 0.15s ease;
+    border: none;
+    background: none;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+.btn-add-playlist:hover {
+    color: white;
+    transform: scale(1.25);
+}
+
+/* ─── SCROLLBAR ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 99px;
 }

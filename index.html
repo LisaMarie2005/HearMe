@@ -1,12 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HearMe</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HearMe — Your Music Room</title>
+    <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
-    <h1`>Welcome to HearMe</h1>
-    <p>test test</p>
+
+    <!-- ══════════════════════════════════════════════════════════
+     PAGE: ROOM (main view)
+══════════════════════════════════════════════════════════ -->
+    <section id="page-room">
+
+        <!-- Top-left nav -->
+        <nav class="room-nav">
+            <button data-nav="room" aria-current="page">🏠 Room</button>
+            <button data-nav="bg-picker" aria-current="false">🎨 Background</button>
+            <button data-nav="playlist-name" aria-current="false">＋ Playlist</button>
+        </nav>
+
+        <!-- Profile corkboard (top-right) -->
+        <div class="profile-board">
+            <div class="profile-photo-slot" id="profile-photo-btn" title="Upload photo">
+                📷<br>Profile<br>photo
+            </div>
+            <h3>Profile</h3>
+            <div class="profile-field" id="profile-name-display">Name</div>
+            <div class="profile-field" id="profile-genre-display">Favourite genre</div>
+            <div class="profile-field" id="profile-bio-display" class="profile-field bio-field">Bio</div>
+            <input type="file" id="profile-photo-input" accept="image/*" hidden />
+        </div>
+
+        <!-- Poster area (right) -->
+        <div class="poster-area" id="poster-area">
+            <span>Chosen<br>poster<br>image</span>
+            <input type="file" id="poster-input" accept="image/*" hidden />
+        </div>
+
+        <!-- Boombox (centre-left) -->
+        <div class="boombox-wrapper" id="boombox">
+            <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Antenna -->
+                <line x1="220" y1="10" x2="245" y2="50" stroke="#555" stroke-width="3" stroke-linecap="round" />
+                <!-- Body -->
+                <rect x="20" y="50" width="280" height="130" rx="18" fill="#c8c8c8" stroke="#555" stroke-width="3" />
+                <!-- Left speaker -->
+                <circle cx="72" cy="115" r="38" fill="#3a3a3a" stroke="#555" stroke-width="2" />
+                <circle cx="72" cy="115" r="28" fill="#222" />
+                <circle cx="72" cy="115" r="14" fill="#444" />
+                <circle cx="72" cy="115" r="5" fill="#888" />
+                <!-- Right speaker -->
+                <circle cx="248" cy="115" r="38" fill="#3a3a3a" stroke="#555" stroke-width="2" />
+                <circle cx="248" cy="115" r="28" fill="#222" />
+                <circle cx="248" cy="115" r="14" fill="#444" />
+                <circle cx="248" cy="115" r="5" fill="#888" />
+                <!-- Centre display -->
+                <rect x="125" y="65" width="70" height="40" rx="6" fill="#1a1a1a" stroke="#777" stroke-width="1.5" />
+                <text x="160" y="80" text-anchor="middle" fill="#aeffd8" font-family="Nunito,sans-serif" font-size="7"
+                    font-weight="600">Currently</text>
+                <text x="160" y="91" text-anchor="middle" fill="#aeffd8" font-family="Nunito,sans-serif" font-size="7"
+                    font-weight="600">playing...</text>
+                <text id="boombox-song" x="160" y="103" text-anchor="middle" fill="#7fd" font-family="Nunito,sans-serif"
+                    font-size="5.5">—</text>
+                <!-- Buttons row -->
+                <rect x="128" y="115" width="64" height="14" rx="4" fill="#bbb" stroke="#999" stroke-width="1" />
+                <text x="160" y="125" text-anchor="middle" fill="#444" font-family="Nunito,sans-serif" font-size="7"
+                    font-weight="700">⏮ ⏯ ⏭</text>
+                <!-- Handle -->
+                <rect x="115" y="35" width="90" height="18" rx="9" fill="#aaa" stroke="#777" stroke-width="2" />
+                <!-- Cassette slot -->
+                <rect x="128" y="140" width="64" height="22" rx="5" fill="#555" stroke="#333" stroke-width="1.5" />
+                <text x="147" y="154" fill="#999" font-family="Nunito,sans-serif" font-size="8">SANYO</text>
+            </svg>
+        </div>
+
+        <!-- Shelf with playlist spines -->
+        <div class="shelf-wrapper">
+            <div class="shelf">
+                <div class="playlist-spines" id="playlist-spines">
+                    <!-- Spines rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+     PAGE: WIZARD STEP 1 — Name your playlist
+══════════════════════════════════════════════════════════ -->
+    <section id="page-playlist-name" class="wizard-layout" hidden>
+        <aside class="wizard-sidebar">
+            <div class="sidebar-label" id="wizard-sidebar-label">New Playlist</div>
+        </aside>
+        <main class="wizard-body">
+            <h2 class="wizard-title">Give your playlist a name</h2>
+            <div class="name-input-wrapper">
+                <input id="input-playlist-name" type="text" maxlength="24" placeholder="Playlist #1"
+                    autocomplete="off" />
+            </div>
+            <button class="btn-next" id="btn-name-next">Next</button>
+        </main>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+     PAGE: WIZARD STEP 2 — Choose a colour
+══════════════════════════════════════════════════════════ -->
+    <section id="page-playlist-color" class="wizard-layout" hidden>
+        <aside class="wizard-sidebar">
+            <div class="sidebar-label" id="wizard-color-label">New Playlist</div>
+        </aside>
+        <main class="wizard-body">
+            <h2 class="wizard-title">Give your playlist a color</h2>
+            <div class="color-grid" id="playlist-color-grid">
+                <!-- swatches injected by JS -->
+            </div>
+            <button class="btn-next" id="btn-color-next">Next</button>
+        </main>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+     PAGE: WIZARD STEP 3 — Add songs
+══════════════════════════════════════════════════════════ -->
+    <section id="page-playlist-songs" class="wizard-layout" hidden>
+        <aside class="wizard-sidebar">
+            <div class="sidebar-label" id="wizard-songs-label">New Playlist</div>
+        </aside>
+        <main class="wizard-body" style="justify-content:flex-start; padding-top:2rem;">
+            <div class="songs-layout">
+                <!-- LEFT: search + results -->
+                <div class="search-area">
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input id="song-search-input" type="text" placeholder="Search song / artist name"
+                            autocomplete="off" />
+                    </div>
+                    <div class="song-list" id="song-search-results">
+                        <!-- results injected by JS -->
+                    </div>
+                </div>
+                <!-- RIGHT: edit panel -->
+                <div class="edit-panel">
+                    <h3>Edit playlist</h3>
+                    <div class="edit-list" id="edit-playlist-list">
+                        <!-- added songs injected by JS -->
+                    </div>
+                </div>
+            </div>
+            <button class="btn-next" id="btn-songs-done">Done</button>
+        </main>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+     PAGE: BACKGROUND PICKER
+══════════════════════════════════════════════════════════ -->
+    <section id="page-bg-picker" hidden>
+        <div class="bg-picker-body">
+            <h2>Choose a background color</h2>
+            <div class="color-grid" id="bg-color-grid">
+                <!-- swatches injected by JS -->
+            </div>
+            <p class="or-text">or<br>Upload a background image</p>
+            <label class="upload-area" for="bg-image-input" title="Upload background image">☁️</label>
+            <input type="file" id="bg-image-input" accept="image/*" hidden />
+            <button class="btn-next" data-nav="room" style="position:static; margin-top:1rem;">← Back to Room</button>
+        </div>
+    </section>
+
+    <script type="module" src="./js/app.js"></script>
 </body>
+
 </html>
