@@ -1,6 +1,82 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+body {
+  background: #d4edf4;
+  font-family: 'Nunito', sans-serif; /* add this font via Google Fonts */
+  padding: 40px;
+}
+
+/* Radio */
+#radio {
+  background: #c0c0c4;
+  border-radius: 12px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  
+}
+
+#now-playing-title {
+  background: #1a2a1a;
+  color: #7fff7f;
+  font-family: monospace;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  min-height: 40px;
+}
+
+#now-playing-artist {
+  color: #4a9a4a;
+  font-family: monospace;
+  font-size: 11px;
+  text-align: center;
+  background: #1a2a1a;
+  padding: 4px 10px 8px;
+  border-radius: 0 0 4px 4px;
+  margin-top: -4px;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#controls button {
+  background: #555;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+#controls button:hover { background: #777; }
+
+/* Modal overlay */
+#modal-overlay {
+  position: fixed;       /* covers the whole screen */
+  inset: 0;              /* top/right/bottom/left all = 0 */
+  background: rgba(0,0,0,0.5);
+  display: flex;         /* centers the modal box */
+  align-items: center;
+  justify-content: center;
+  z-index: 100;          /* on top of everything */
+}
+
+#modal-box {
+  background: #d4edf4;
+  border-radius: 12px;
+  padding: 32px;
+  width: 500px;
+  max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+#color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0;
 }

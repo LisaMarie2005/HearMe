@@ -3,10 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>HearMe</title>
 </head>
 <body>
-    <h1`>Welcome to HearMe</h1>
-    <p>test test</p>
+  <!-- THE RADIO DISPLAY -->
+  <div id="radio">
+
+    <div id="now-playing-title">Select a playlist to start</div>
+    <div id="now-playing-artist"></div>
+
+    <div id="controls">
+      <button onclick="prevSong()">⏮ Prev</button>
+      <button onclick="togglePlay()" id="play-btn">▶ Play</button>
+      <button onclick="nextSong()">⏭ Next</button>
+    </div>
+
+    <div id="playlist-name">— no playlist —</div>
+
+  </div>
+
+  <!-- PLAYLIST BUTTONS (we'll make these dynamic soon) -->
+  <div id="playlist-buttons"></div>
+
+  <!-- MODAL OVERLAY -->
+<div id="modal-overlay" style="display:none;">
+
+  <div id="modal-box">
+
+    <!-- STEP 1: Name -->
+    <div class="modal-step" id="step-name">
+      <h2>Give your playlist a name</h2>
+      <input
+        type="text"
+        id="playlist-name-input"
+        placeholder="Playlist name..."
+        oninput="updatePreview()"
+      >
+      <div>
+        <button onclick="closeModal()">Cancel</button>
+        <button onclick="goToStep('step-color')">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Color -->
+    <div class="modal-step" id="step-color" style="display:none;">
+      <h2>Choose a color</h2>
+      <div id="color-swatches"></div>
+      <div>
+        <button onclick="goToStep('step-name')">← Back</button>
+        <button onclick="goToStep('step-songs')">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Songs -->
+    <div class="modal-step" id="step-songs" style="display:none;">
+      <h2>Add songs</h2>
+
+      <div id="search-area">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search songs..."
+          oninput="filterSongs()"
+        >
+        <div id="search-results"></div>
+      </div>
+
+      <div id="edit-area">
+        <h3>Your playlist</h3>
+        <div id="edit-list"></div>
+      </div>
+
+      <div>
+        <button onclick="goToStep('step-color')">← Back</button>
+        <button onclick="savePlaylist()">Done ✓</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Button to open the modal -->
+<button onclick="openNewPlaylist()">+ New Playlist</button>
+
+  <script src="app.js"></script>
 </body>
 </html>
