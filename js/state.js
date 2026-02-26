@@ -72,3 +72,71 @@ export function setBgImage(dataUrl) {
 export function setProfile(patch) {
     Object.assign(state.profile, patch);
 }
+
+// ─── Radio colors ────────────────────────────────────────────────────────────
+export function setRadioColors(colors) {
+    Object.assign(state.radioColors, colors);
+}
+
+// ─── Frame ───────────────────────────────────────────────────────────────────
+export function setFrame(index) {
+    state.profile.frame = index;
+}
+
+// ─── Shelf ───────────────────────────────────────────────────────────────────
+export function setShelfColor(color) {
+    state.shelfColor = color;
+}
+
+// ─── Hydrate from shared data ────────────────────────────────────────────────
+export function hydrateState(shared) {
+    if (shared.profile) Object.assign(state.profile, shared.profile);
+    if (shared.bgColor) state.bgColor = shared.bgColor;
+    if (shared.radioColors) Object.assign(state.radioColors, shared.radioColors);
+    if (shared.shelfColor) state.shelfColor = shared.shelfColor;
+    if (shared.playlists && shared.playlists.length) state.playlists = shared.playlists;
+}
+
+// ─── Player state ────────────────────────────────────────────────────────────
+state.player = {
+    currentSong: null,
+    isPlaying: false,
+    currentPlaylistIndex: -1,
+    currentSongIndex: -1,
+};
+
+export function playSong(song, playlistIndex = -1, songIndex = -1) {
+    state.player.currentSong = song;
+    state.player.isPlaying = true;
+    state.player.currentPlaylistIndex = playlistIndex;
+    state.player.currentSongIndex = songIndex;
+}
+
+export function togglePlayPause() {
+    if (!state.player.currentSong) return;
+    state.player.isPlaying = !state.player.isPlaying;
+}
+
+export function playNext() {
+    const pi = state.player.currentPlaylistIndex;
+    if (pi < 0 || pi >= state.playlists.length) return;
+    const pl = state.playlists[pi];
+    if (!pl || !pl.songs.length) return;
+    let si = state.player.currentSongIndex + 1;
+    if (si >= pl.songs.length) si = 0; // loop
+    state.player.currentSongIndex = si;
+    state.player.currentSong = pl.songs[si];
+    state.player.isPlaying = true;
+}
+
+export function playPrev() {
+    const pi = state.player.currentPlaylistIndex;
+    if (pi < 0 || pi >= state.playlists.length) return;
+    const pl = state.playlists[pi];
+    if (!pl || !pl.songs.length) return;
+    let si = state.player.currentSongIndex - 1;
+    if (si < 0) si = pl.songs.length - 1; // loop
+    state.player.currentSongIndex = si;
+    state.player.currentSong = pl.songs[si];
+    state.player.isPlaying = true;
+}

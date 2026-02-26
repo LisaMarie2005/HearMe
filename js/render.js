@@ -1,24 +1,11 @@
-import { SWATCH_COLORS, BG_COLORS } from "./params.js";
+import { SWATCH_COLORS, BG_COLORS, FRAME_IMAGES, RADIO_PRESETS } from "./params.js";
 import { state } from "./state.js";
 
-// ─── Mock song catalogue ──────────────────────────────────────────────────────
-const MOCK_SONGS = [
-    { id: "s1", name: "Chill Vibes", artist: "Lo-Fi Dreams", color: "#b2c8f4" },
-    { id: "s2", name: "Night Drive", artist: "City Sounds", color: "#c8b2f4" },
-    { id: "s3", name: "Golden Hour", artist: "Sunset Trio", color: "#f4e0a0" },
-    { id: "s4", name: "Rainy Day", artist: "The Couch", color: "#a0c8a0" },
-    { id: "s5", name: "Coffee Shop", artist: "Acoustic Days", color: "#f4c0a0" },
-    { id: "s6", name: "Midnight Jazz", artist: "The Late Set", color: "#c0a0f4" },
-    { id: "s7", name: "Summer Breeze", artist: "Beach Waves", color: "#a0f4e8" },
-    { id: "s8", name: "Focus Mode", artist: "Study Beats", color: "#f4a0a0" },
-    { id: "s9", name: "Electric Groove", artist: "Neon Collective", color: "#f4f4a0" },
-    { id: "s10", name: "Quiet Storm", artist: "Velvet Mood", color: "#c8c8f4" },
-    { id: "s11", name: "Morning Light", artist: "Sunrise Ensemble", color: "#f0e8c0" },
-    { id: "s12", name: "Wanderlust", artist: "Road Trippers", color: "#a0d4f4" },
-];
-
 // ─── Page visibility ──────────────────────────────────────────────────────────
-const ALL_PAGES = ["room", "playlist-name", "playlist-color", "playlist-songs", "bg-picker"];
+const ALL_PAGES = [
+    "room", "playlist-name", "playlist-color", "playlist-songs",
+    "bg-picker", "radio-picker", "frame-picker", "shelf-picker",
+];
 
 export function renderPage(page) {
     ALL_PAGES.forEach((id) => {
@@ -48,6 +35,38 @@ export function renderRoom() {
     if (nameEl) nameEl.textContent = state.profile.name || "Name";
     if (genreEl) genreEl.textContent = state.profile.genre || "Favourite genre";
     if (bioEl) bioEl.textContent = state.profile.bio || "Bio";
+
+    // Frame image
+    const frameImg = document.getElementById("profile-frame-img");
+    if (frameImg) {
+        const frameFile = FRAME_IMAGES[state.profile.frame] || FRAME_IMAGES[0];
+        frameImg.src = `./photos/frames/${frameFile}`;
+    }
+
+    // Profile photo
+    const photoSlot = document.getElementById("profile-photo-btn");
+    if (photoSlot && state.profile.photo) {
+        photoSlot.style.backgroundImage = `url(${state.profile.photo})`;
+        photoSlot.style.backgroundSize = "cover";
+        photoSlot.style.backgroundPosition = "center";
+        photoSlot.innerHTML = "";
+    }
+
+    // Radio image
+    const boombox = document.getElementById("boombox");
+    if (boombox && state.radioColors) {
+        boombox.style.setProperty("--radio-body", state.radioColors.body);
+        boombox.style.setProperty("--radio-speaker", state.radioColors.speaker);
+        boombox.style.setProperty("--radio-handle", state.radioColors.handle);
+        boombox.style.setProperty("--radio-buttons", state.radioColors.buttons);
+        boombox.style.setProperty("--radio-detail", state.radioColors.detail);
+    }
+
+    // Shelf styling
+    const shelf = document.querySelector(".shelf");
+    if (shelf && state.shelfColor) {
+        shelf.style.setProperty("--shelf-wood", state.shelfColor);
+    }
 }
 
 function renderShelf() {
@@ -55,12 +74,14 @@ function renderShelf() {
     if (!container) return;
     container.innerHTML = "";
 
-    state.playlists.forEach((pl) => {
+    state.playlists.forEach((pl, index) => {
         const spine = document.createElement("div");
         spine.className = "playlist-spine";
         spine.style.background = pl.color;
         spine.textContent = pl.name;
         spine.dataset.playlistId = pl.id;
+        spine.dataset.playlistIndex = index;
+        spine.title = `Open ${pl.name}`;
         container.appendChild(spine);
     });
 
@@ -77,6 +98,13 @@ export function updateWizardLabels(name) {
     ["wizard-sidebar-label", "wizard-color-label", "wizard-songs-label"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.textContent = name || "New Playlist";
+    });
+}
+
+export function updateWizardColor(color) {
+    ["wizard-sidebar-label", "wizard-color-label", "wizard-songs-label"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.style.background = color || "#f4a0a0";
     });
 }
 
@@ -102,20 +130,69 @@ function _renderSwatchGrid(containerId, colors, selected, dataAttr) {
     });
 }
 
+// ─── Radio customizer ─────────────────────────────────────────────────────────
+export function renderRadioCustomizer() {
+    // Sync color inputs with state
+    const ids = { body: "radio-color-body", speaker: "radio-color-speaker", handle: "radio-color-handle", buttons: "radio-color-buttons", detail: "radio-color-detail" };
+    for (const [key, id] of Object.entries(ids)) {
+        const el = document.getElementById(id);
+        if (el) el.value = state.radioColors[key];
+    }
+
+    // Render preset chips
+    const presetRow = document.getElementById("radio-presets");
+    if (presetRow) {
+        presetRow.innerHTML = "";
+        RADIO_PRESETS.forEach((preset, i) => {
+            const chip = document.createElement("div");
+            chip.className = "preset-chip";
+            chip.dataset.presetIndex = i;
+            chip.innerHTML = `<div class="preset-dot" style="background:${preset.body}"></div><div class="preset-dot" style="background:${preset.speaker}"></div><span>${preset.name}</span>`;
+            presetRow.appendChild(chip);
+        });
+    }
+}
+
+// ─── Shelf customizer ─────────────────────────────────────────────────────────
+export function renderShelfCustomizer() {
+    const el = document.getElementById("shelf-color-main");
+    if (el) el.value = state.shelfColor;
+}
+
+// ─── Frame picker ─────────────────────────────────────────────────────────────
+export function renderFramePicker() {
+    const grid = document.getElementById("frame-picker-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    FRAME_IMAGES.forEach((file, i) => {
+        const card = document.createElement("div");
+        card.className = "picker-card" + (i === state.profile.frame ? " selected" : "");
+        card.dataset.frameIndex = i;
+
+        const img = document.createElement("img");
+        img.src = `./photos/frames/${file}`;
+        img.alt = `Frame style ${i + 1}`;
+
+        card.appendChild(img);
+        grid.appendChild(card);
+    });
+}
+
 // ─── Song search results ──────────────────────────────────────────────────────
-export function renderSongSearch(query) {
+export function renderSongSearch(query, songLibrary = []) {
     const results = document.getElementById("song-search-results");
     if (!results) return;
     results.innerHTML = "";
 
     const q = query.trim().toLowerCase();
     const filtered = q
-        ? MOCK_SONGS.filter(
+        ? songLibrary.filter(
             (s) =>
                 s.name.toLowerCase().includes(q) ||
                 s.artist.toLowerCase().includes(q)
         )
-        : MOCK_SONGS;
+        : songLibrary;
 
     filtered.forEach((song) => {
         results.appendChild(_buildSongItem(song));

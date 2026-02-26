@@ -1,0 +1,16 @@
+{
+  "name": "hearme",
+  "version": "1.0.0",
+  "description": "Interactive customizable music room prototype",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve ."
+  },
+  "keywords": [],
+  "author": "Lisa-Marie, Sam, AJ",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

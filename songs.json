@@ -1,0 +1,302 @@
+[
+    {
+        "id": "s1",
+        "name": "APT.",
+        "artist": "ROSÉ & Bruno Mars",
+        "color": "#f4a0b8"
+    },
+    {
+        "id": "s2",
+        "name": "Die With A Smile",
+        "artist": "Lady Gaga & Bruno Mars",
+        "color": "#c8b2f4"
+    },
+    {
+        "id": "s3",
+        "name": "Birds of a Feather",
+        "artist": "Billie Eilish",
+        "color": "#a0d4f4"
+    },
+    {
+        "id": "s4",
+        "name": "Espresso",
+        "artist": "Sabrina Carpenter",
+        "color": "#d4a474"
+    },
+    {
+        "id": "s5",
+        "name": "A Bar Song (Tipsy)",
+        "artist": "Shaboozey",
+        "color": "#e8c890"
+    },
+    {
+        "id": "s6",
+        "name": "Not Like Us",
+        "artist": "Kendrick Lamar",
+        "color": "#a0a0b4"
+    },
+    {
+        "id": "s7",
+        "name": "Taste",
+        "artist": "Sabrina Carpenter",
+        "color": "#f4c0a0"
+    },
+    {
+        "id": "s8",
+        "name": "LUNCH",
+        "artist": "Billie Eilish",
+        "color": "#a0c8a0"
+    },
+    {
+        "id": "s9",
+        "name": "Please Please Please",
+        "artist": "Sabrina Carpenter",
+        "color": "#f0c890"
+    },
+    {
+        "id": "s10",
+        "name": "Texas Hold 'Em",
+        "artist": "Beyoncé",
+        "color": "#e0c890"
+    },
+    {
+        "id": "s11",
+        "name": "Lose Control",
+        "artist": "Teddy Swims",
+        "color": "#c8c8f4"
+    },
+    {
+        "id": "s12",
+        "name": "Good Luck, Babe!",
+        "artist": "Chappell Roan",
+        "color": "#f490b8"
+    },
+    {
+        "id": "s13",
+        "name": "Beautiful Things",
+        "artist": "Benson Boone",
+        "color": "#b2c8f4"
+    },
+    {
+        "id": "s14",
+        "name": "HOT TO GO!",
+        "artist": "Chappell Roan",
+        "color": "#e87040"
+    },
+    {
+        "id": "s15",
+        "name": "I Love You, I'm Sorry",
+        "artist": "Gracie Abrams",
+        "color": "#d4b8f0"
+    },
+    {
+        "id": "s16",
+        "name": "Too Sweet",
+        "artist": "Hozier",
+        "color": "#f4e870"
+    },
+    {
+        "id": "s17",
+        "name": "Stargazing",
+        "artist": "Myles Smith",
+        "color": "#4060a0"
+    },
+    {
+        "id": "s18",
+        "name": "Nasty",
+        "artist": "Tinashe",
+        "color": "#8860b0"
+    },
+    {
+        "id": "s19",
+        "name": "Saturn",
+        "artist": "SZA",
+        "color": "#b0b0d8"
+    },
+    {
+        "id": "s20",
+        "name": "Water",
+        "artist": "Tyla",
+        "color": "#9ecbf4"
+    },
+    {
+        "id": "s21",
+        "name": "Stick Season",
+        "artist": "Noah Kahan",
+        "color": "#a07050"
+    },
+    {
+        "id": "s22",
+        "name": "Paint The Town Red",
+        "artist": "Doja Cat",
+        "color": "#e06060"
+    },
+    {
+        "id": "s23",
+        "name": "Carnival",
+        "artist": "¥$, Kanye West, Ty Dolla $ign",
+        "color": "#f47070"
+    },
+    {
+        "id": "s24",
+        "name": "Snooze",
+        "artist": "SZA",
+        "color": "#7878a8"
+    },
+    {
+        "id": "s25",
+        "name": "Greedy",
+        "artist": "Tate McRae",
+        "color": "#f4a870"
+    },
+    {
+        "id": "s26",
+        "name": "Levii's Jeans",
+        "artist": "Beyoncé ft. Post Malone",
+        "color": "#6090c0"
+    },
+    {
+        "id": "s27",
+        "name": "Houdini",
+        "artist": "Dua Lipa",
+        "color": "#e0a0f4"
+    },
+    {
+        "id": "s28",
+        "name": "Illusion",
+        "artist": "Dua Lipa",
+        "color": "#50b090"
+    },
+    {
+        "id": "s29",
+        "name": "365",
+        "artist": "Charli XCX",
+        "color": "#60d0a0"
+    },
+    {
+        "id": "s30",
+        "name": "WILDFLOWER",
+        "artist": "Billie Eilish",
+        "color": "#d0e880"
+    },
+    {
+        "id": "s31",
+        "name": "Fortnight",
+        "artist": "Taylor Swift ft. Post Malone",
+        "color": "#c0c8d8"
+    },
+    {
+        "id": "s32",
+        "name": "Cruel Summer",
+        "artist": "Taylor Swift",
+        "color": "#f4e0a0"
+    },
+    {
+        "id": "s33",
+        "name": "End of Beginning",
+        "artist": "Djo",
+        "color": "#80c080"
+    },
+    {
+        "id": "s34",
+        "name": "Lovin On Me",
+        "artist": "Jack Harlow",
+        "color": "#d8a0a0"
+    },
+    {
+        "id": "s35",
+        "name": "Agora Hills",
+        "artist": "Doja Cat",
+        "color": "#e8d060"
+    },
+    {
+        "id": "s36",
+        "name": "Obsessed",
+        "artist": "Addison Rae",
+        "color": "#f4b8c8"
+    },
+    {
+        "id": "s37",
+        "name": "Si Antes Te Hubiera Conocido",
+        "artist": "KAROL G",
+        "color": "#b0d8e8"
+    },
+    {
+        "id": "s38",
+        "name": "MILLION DOLLAR BABY",
+        "artist": "Tommy Richman",
+        "color": "#a0f4e8"
+    },
+    {
+        "id": "s39",
+        "name": "Wanna Be",
+        "artist": "GloRilla & Megan Thee Stallion",
+        "color": "#f4f4a0"
+    },
+    {
+        "id": "s40",
+        "name": "Risk",
+        "artist": "Gracie Abrams",
+        "color": "#c0a0f4"
+    },
+    {
+        "id": "s41",
+        "name": "Pink Pony Club",
+        "artist": "Chappell Roan",
+        "color": "#f4a0a0"
+    },
+    {
+        "id": "s42",
+        "name": "All Falls Down",
+        "artist": "Kanye West",
+        "color": "#b0906a"
+    },
+    {
+        "id": "s43",
+        "name": "Luther",
+        "artist": "Kendrick Lamar ft. SZA",
+        "color": "#9898c8"
+    },
+    {
+        "id": "s44",
+        "name": "Timeless",
+        "artist": "The Weeknd & Playboi Carti",
+        "color": "#2a2a6a"
+    },
+    {
+        "id": "s45",
+        "name": "Sympathy Is A Knife",
+        "artist": "Charli XCX",
+        "color": "#70b8a0"
+    },
+    {
+        "id": "s46",
+        "name": "Von Dutch",
+        "artist": "Charli XCX",
+        "color": "#a08890"
+    },
+    {
+        "id": "s47",
+        "name": "Ferrari",
+        "artist": "Bebe Rexha",
+        "color": "#e06060"
+    },
+    {
+        "id": "s48",
+        "name": "Deli",
+        "artist": "Ice Spice",
+        "color": "#d48040"
+    },
+    {
+        "id": "s49",
+        "name": "Gata Only",
+        "artist": "FloyyMenor & Cris MJ",
+        "color": "#4080c0"
+    },
+    {
+        "id": "s50",
+        "name": "Standing Next To You",
+        "artist": "Jung Kook",
+        "color": "#e0e8f4"
+    }
+]
