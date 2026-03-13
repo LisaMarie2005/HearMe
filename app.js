@@ -29,19 +29,11 @@ function getSong(id) {
   return ALL_SONGS.find(s => s.id === id);
 }
 
-
-
-
-
 // Radio state
 let activePlaylistId = null;  // which playlist is loaded
 let currentSongIndex = 0;     // which song in that playlist
 let isPlaying = false;        // is it playing or paused?
 
-// Modal state
-let editingPlaylistId = null; // null = creating new, number = editing existing
-let draftColor = "#f4a4a4";   // the color chosen so far
-let draftSongs = [];          // the songs added so far (array of ids)
 
 function loadCurrentSong() {
     //find the active playlist
